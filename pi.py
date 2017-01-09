@@ -21,8 +21,9 @@ def _exit():
 def getInput():
     # prompt the user for a number
     try:
-        n = int(input("Enter the number of decimal places between 0 and {}: "
-                      .format(MAX_DECIMAL_PLACES)))
+        n = round(float(input("Enter the number of decimal"
+                              " places between 0 and {}: "
+                              .format(MAX_DECIMAL_PLACES))))
     except ValueError as v:
         _clear()
         print("Input value must a number")
