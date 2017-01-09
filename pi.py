@@ -14,43 +14,77 @@ def _clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def _exit():
-    sys.exit(1)
+# def _exit():
+#     sys.exit(1)
+#
+#
+# def quit():
+#     # prompt for another run or an exit
+#     if input("Do you want to Continue? [Y]es / [N]o: ") in ('y', 'Y', ''):
+#         getPi()
+#     else:
+#         _exit()
 
 
-def getInput():
-    # prompt the user for a number
+def checkString(n):
+    """This method ensures that the input by the user
+    is not a string
+
+    args: Takes in a value n which contains value to be tested
+
+    returns: This method returns True if value is a string and raises
+            a ValueError.
+    """
     try:
-        n = round(float(input("Enter the number of decimal"
-                              " places between 0 and {}: "
-                              .format(MAX_DECIMAL_PLACES))))
+        if isinstance(n, str):
+            raise ValueError("Input value must a number")
     except ValueError as v:
         _clear()
-        print("Input value must a number")
-        n = getInput()
-    # check that the given input isn't longer than the decimal places in PI
-    if n not in range(0, MAX_DECIMAL_PLACES + 1):
+        print(v.args[0])
+        return True
+
+
+def checkLength(n):
+    """This method ensures that the length described by the input
+    is not longer than the number of decimal places in math.pi
+
+    args: The length described by user input
+
+    returns: This method returns True if length is longer than the number
+    of decimal places
+    """
+
+    if round(n) not in range(0, MAX_DECIMAL_PLACES + 1):
         _clear()
         print("The number must be between 0 and {}"
               .format(MAX_DECIMAL_PLACES))
+        return True
+
+
+def getInput(n=None):
+    # prompt the user for a number
+    n = n or float(input("Enter the number of decimal"
+                         " places between 0 and {}: "
+                         .format(MAX_DECIMAL_PLACES)))
+    # Ensure input isn't a string
+    if checkString(n):
         n = getInput()
+
+    # check that the given input isn't longer than the decimal places in PI
+    if checkLength(n):
+        n = getInput()
+
     _clear()
     return n
 
 
-def getPi():
-    n = getInput()
+def getPi(n=None):
+    n = getInput(n) or getInput()
     # convert PI up to N decimal places as defined by the user
-    # return converted PI back to the user
-    decimalPlaces = float("{0:.{1}f}".format(PI, n))
-    print("PI to {} decimal places is: {}".format(n, decimalPlaces))
+    # return converted PI back to the user. N is also rounded
+    # to the nearest 10.
+    return "PI to {} decimal places is: {}".format(n, round(PI, round(n)))
 
-    # prompt for another run or an exit
-    if input("Do you want to Continue? [Y]es / [N]o: ") in ('y', 'Y', ''):
-        _clear()
-        getPi()
-    else:
-        _exit()
 
 if __name__ == "__main__":
-    getPi()
+    print(getPi())

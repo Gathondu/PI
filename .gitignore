@@ -1,2 +1,5 @@
 .json
 .vscode
+.pyc
+.cache
+pi.pyc
