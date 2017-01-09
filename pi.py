@@ -27,10 +27,9 @@ def getInput():
         _clear()
         print("The number must be between 0 and {}"
               .format(MAX_DECIMAL_PLACES))
-        getInput()
-    else:
-        _clear()
-        return n
+        n = getInput()
+    _clear()
+    return n
 
 
 def getPi():
@@ -46,4 +45,5 @@ def getPi():
     else:
         getPi()
 
-getPi()
+if __name__ == "__main__":
+    getPi()
