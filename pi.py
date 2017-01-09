@@ -20,8 +20,13 @@ def _exit():
 
 def getInput():
     # prompt the user for a number
-    n = int(input("Enter the number of decimal places between 0 and {}: "
-                  .format(MAX_DECIMAL_PLACES)))
+    try:
+        n = int(input("Enter the number of decimal places between 0 and {}: "
+                      .format(MAX_DECIMAL_PLACES)))
+    except ValueError as v:
+        _clear()
+        print("Input value must a number")
+        n = getInput()
     # check that the given input isn't longer than the decimal places in PI
     if n not in range(0, MAX_DECIMAL_PLACES + 1):
         _clear()
@@ -40,10 +45,11 @@ def getPi():
     print("PI to {} decimal places is: {}".format(n, decimalPlaces))
 
     # prompt for another run or an exit
-    if input("Do you want to Quit? [Y]es / [N]o: ") in ('y', 'Y', ''):
-        _exit()
-    else:
+    if input("Do you want to Continue? [Y]es / [N]o: ") in ('y', 'Y', ''):
+        _clear()
         getPi()
+    else:
+        _exit()
 
 if __name__ == "__main__":
     getPi()
