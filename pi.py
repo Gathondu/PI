@@ -83,7 +83,8 @@ def getPi(n=None):
     # convert PI up to N decimal places as defined by the user
     # return converted PI back to the user. N is also rounded
     # to the nearest 10.
-    return "PI to {} decimal places is: {}".format(n, round(PI, round(n)))
+    decimalPlaces = round(PI, round(n))
+    return "PI to {} decimal places is: {}".format(n, decimalPlaces)
 
 
 if __name__ == "__main__":
