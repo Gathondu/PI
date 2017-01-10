@@ -36,11 +36,10 @@ def checkString(n):
             a ValueError.
     """
     try:
-        if isinstance(n, str):
-            raise ValueError("Input value must a number")
+        int(n)
     except ValueError as v:
         _clear()
-        print(v.args[0])
+        print("Input value must a number")
         return True
 
 
@@ -63,15 +62,15 @@ def checkLength(n):
 
 def getInput(n=None):
     # prompt the user for a number
-    n = n or float(input("Enter the number of decimal"
-                         " places between 0 and {}: "
-                         .format(MAX_DECIMAL_PLACES)))
+    n = n or input("Enter the number of decimal"
+                   " places between 0 and {}: "
+                   .format(MAX_DECIMAL_PLACES))
     # Ensure input isn't a string
     if checkString(n):
         n = getInput()
 
     # check that the given input isn't longer than the decimal places in PI
-    if checkLength(n):
+    if checkLength(float(n)):
         n = getInput()
 
     _clear()
@@ -83,7 +82,7 @@ def getPi(n=None):
     # convert PI up to N decimal places as defined by the user
     # return converted PI back to the user. N is also rounded
     # to the nearest 10.
-    decimalPlaces = round(PI, round(n))
+    decimalPlaces = round(PI, round(float(n)))
     return "PI to {} decimal places is: {}".format(n, decimalPlaces)
 
 
